@@ -32,6 +32,6 @@ export default {
 </template>
 
 <style lang="scss">
-/* import file general.scss*/
-@use "./scss/general.scss";
+
+
 </style>
