@@ -6,7 +6,7 @@ import ProjectCard from "./components/ProjectCard.vue";
 export default {
   data() {
     return {
-      title: "Hello world!",
+      title: "Vite Boolfolio!",
       projects: [],
     };
   },
@@ -14,27 +14,37 @@ export default {
   components: {
     ProjectCard,
   },
+  created() {
+    this.fecthProjects();
+  },
 
   methods: {
     fecthProjects() {
-      axios.get(`http://127.0.0.1:8000/api/projects`).then((res) => { console.log(res.data.data);
-        this.projects = res.data.data;
-      });
+      axios.get(`http://127.0.0.1:8000/api/projects`)
+        .then((res) => {
+          console.log('>>> response fetch projects:', res.data)
+          this.projects = res.data.data;
+          console.log(this.projects)
+        })
+        .catch((err) => console.error('>>> errore fetch projects:', err));
     },
   },
-
 };
 </script>
 
 <template>
   <div class="container">
     <h1>{{ title }}</h1>
-    <div class="row g-3">
+    <div v-if="projects.length > 0" class="row g-3">
       <project-card
         v-for="project in projects"
         :project="project"
       ></project-card>
     </div>
+
+   
+
+    <div v-else>Nulla da mostrare</div>
   </div>
 </template>
 
